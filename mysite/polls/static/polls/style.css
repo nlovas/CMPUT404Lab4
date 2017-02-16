@@ -1,0 +1,66 @@
+/* css comment*/
+
+a {
+
+text-decoration: none;
+
+}
+
+a:hover{
+text-decoration: underline;
+}
+
+img{
+animation: spin 3s linear infinite;
+}
+
+@keyframes spin{
+0%{	
+	transform: rotate(0deg);
+	}
+
+100%{
+	transform: rotate(360deg);
+	}
+}
+
+body{
+background-color: orange;
+}
+
+
+
+ul{
+	list-style: none;
+	counter-reset: level1;
+}
+li a:first-letter{
+font-size: 200%;
+
+}
+
+li:nth-child(even){
+background-color: linear-gradient(90deg,white, #CCCCCC);
+}
+
+li:nth-child(odd){
+background-color: linear-gradient(90deg, white, white 2em, #CCCCAA);
+}
+
+ul:li:before{
+	counter: counter(level1) " ";
+	counter-increment: level1;
+	border: 0.25em solid white;
+	border-radius: 50%;
+	padding: 0.5em;
+	background-color: #AAAAFF;
+
+}
+ul li{
+
+font-size: 200%;
+padding-top:0.5em;
+
+
+}
+

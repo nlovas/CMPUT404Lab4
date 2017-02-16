@@ -1,3 +1,10 @@
+{% load static %}
+<html>
+<head>
+<link href="{% static 'polls/style.css' %}" rel ="stylesheet"/>
+<title> My amazing index page bro</title>
+</head>
+<body>
 {% if latest_question_list %}
 	<ul>
 	{% for question in latest_question_list %}
@@ -7,3 +14,7 @@
 	{% else %}
 	<p>No polls are availble</p>
 	{% endif %}
+
+	<img src=  "{% static 'polls/kitty.jpg' %}" alt = "cute kitty with paw"/>
+</body>
+</html>

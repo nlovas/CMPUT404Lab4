@@ -3,18 +3,22 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Question, Choice
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
+from django.views import generic
+
 # Create your views here.
 
-def index(request):
-	latest_question_list = Question.objects.order_by('-pub_date')[:5]
-	context = {
-	'latest_question_list':latest_question_list}
-	return render(request, 'polls/index.html',context)
 
-def detail(request, question_id):
-	question= get_object_or_404(Question,pk=question_id)
-	return render(request,'polls/details.html', {'question':question})
-	#return HttpResponse("Hello you're at the detail page for poll " + question_id)
+class IndexView(generic.ListView):
+	template_name = 'polls/index.html'
+	context_object_name = 'latest_question_list'
+	def get_queryset(self):
+		return Question.objects.order_by('-pub_date')[:5]
+
+class DetailView(generic.DetailView):
+	model = Question
+	template_name = 'polls/details.html'
+
+
 def vote(request,question_id):
 	p = get_object_or_404(Question,pk=question_id)
 	try:
@@ -25,6 +29,8 @@ def vote(request,question_id):
 		selected_choice.votes += 1
 		selected_choice.save()
 	return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
-def results(request, question_id):
-	question= get_object_or_404(Question,pk=question_id)
-	return HttpResponse("This page will show us wich one is most popular")
+
+class ResultsView(generic.DetailView):
+	model = Question
+	template_name = 'polls/results.html'
+
